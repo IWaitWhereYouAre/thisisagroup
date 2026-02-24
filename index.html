@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Aomsin | Eternal Miss 🤍</title>
+<title>With You in Mind 🤍</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Parisienne&display=swap" rel="stylesheet">
@@ -274,20 +274,30 @@ const content = {
   ]
 };
 
+function pickDifferent(list, last) {
+  if (list.length <= 1) return list[0] || "";
+  let next = last;
+  while (next === last) {
+    next = list[Math.floor(Math.random() * list.length)];
+  }
+  return next;
+}
+
 function updateMode(type, btn) {
-  // Update Buttons
+  // Make the clicked tab active (even if it's already active)
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
 
-  // Update Text with soft fade
+  // Always change message on every click
   const bubble = document.getElementById('bubble');
+  const last = bubble.textContent;
   bubble.classList.remove('show');
 
   setTimeout(() => {
     const list = content[type];
-    bubble.textContent = list[Math.floor(Math.random() * list.length)];
+    bubble.textContent = pickDifferent(list, last);
     bubble.classList.add('show');
-  }, 300);
+  }, 220);
 }
 
 // Initial trigger
