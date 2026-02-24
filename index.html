@@ -65,7 +65,7 @@ body::after {
 .card {
   position: relative;
   width: min(780px, 90%);
-  padding: 80px 60px;
+  padding: 80px 60px 70px;
   border-radius: 4px; /* Sharper edges feel more high-end/editorial */
   background: var(--glass-white);
   backdrop-filter: blur(20px);
@@ -137,8 +137,32 @@ header h1 {
   font-size: clamp(18px, 2.5vw, 24px);
   line-height: 1.8;
   color: var(--text-rich);
-  max-width: 500px;
-  margin: 0 auto 50px;
+  max-width: 520px;
+  margin: 0 auto 22px;
+}
+
+/* =========================
+   CAT INSIDE CARD
+   ========================= */
+.card-cat{
+  display:flex;
+  justify-content:center;
+  margin: 8px 0 34px;
+  animation: catFloat 5.2s ease-in-out infinite;
+}
+
+.card-cat img{
+  width: 190px;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  opacity: 0.95;
+}
+
+/* Smooth floating */
+@keyframes catFloat{
+  0%{ transform: translateY(0px) rotate(-1deg); }
+  50%{ transform: translateY(-8px) rotate(1deg); }
+  100%{ transform: translateY(0px) rotate(-1deg); }
 }
 
 /* Elegant Controls */
@@ -147,7 +171,7 @@ header h1 {
   justify-content: center;
   gap: 30px;
   border-top: 1px solid rgba(0,0,0,0.05);
-  padding-top: 40px;
+  padding-top: 34px;
 }
 
 .chip {
@@ -178,7 +202,6 @@ header h1 {
 
 .chip.active { color: var(--text-gold); }
 .chip.active::after { width: 100%; }
-
 .chip:hover { color: var(--text-gold); }
 
 /* Message Bubble - Luxury Minimalist */
@@ -194,37 +217,10 @@ header h1 {
 
 .bubble.show { opacity: 1; }
 
-/* =========================
-   MEME CAT (BELOW CARD)
-   ========================= */
-.meme-cat{
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  animation: catFloat 5.2s ease-in-out infinite;
-}
-
-.meme-cat img{
-  width: 240px; /* big but not overwhelming */
-  border-radius: 20px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.12);
-}
-
-/* Smooth floating */
-@keyframes catFloat{
-  0%{ transform: translateY(0px) rotate(-1deg); }
-  50%{ transform: translateY(-12px) rotate(1deg); }
-  100%{ transform: translateY(0px) rotate(-1deg); }
-}
-  
 @media (max-width: 600px) {
-  .card { padding: 60px 30px; }
+  .card { padding: 60px 30px 54px; }
   .actions { flex-direction: column; gap: 10px; }
-
-  .meme-cat img{
-    width: 170px;
-  }
+  .card-cat img{ width: 160px; }
 }
 </style>
 </head>
@@ -243,7 +239,12 @@ header h1 {
 
   <div class="note">
     "My parents are keeping me close to home. <br/>
-    But I’m cheering for you from here, and I can’t wait to see you again."
+    But I’m cheering for you from here, and I can’t wait to see you again."
+  </div>
+
+  <!-- CAT INSIDE THE CARD -->
+  <div class="card-cat" aria-hidden="true">
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="meme cat">
   </div>
 
   <div class="actions" role="tablist">
@@ -253,11 +254,6 @@ header h1 {
   </div>
 
   <div class="bubble" id="bubble"></div>
-</div>
-
-<!-- MEME CAT (change this GIF to any meme cat you want) -->
-<div class="meme-cat">
-  <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="meme cat">
 </div>
 
 <script>
