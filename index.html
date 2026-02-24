@@ -187,31 +187,32 @@ header h1 {
 .bubble.show { opacity: 1; }
 
 /* =========================
-   MEME CAT (ALWAYS VISIBLE)
+   MEME CAT (CENTER HERO)
    ========================= */
 .meme-cat{
   position: fixed;
-  bottom: 22px;
-  right: 26px;
-  width: 130px;
+  bottom: 40px;              /* adjust height from bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;              /* MUCH bigger */
   z-index: 1000;
   pointer-events: none;
-  opacity: .96;
+  opacity: .95;
   animation: catFloat 5.2s ease-in-out infinite;
-  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.12));
+  filter: drop-shadow(0 25px 40px rgba(0,0,0,0.15));
 }
 
 .meme-cat img{
   width: 100%;
-  border-radius: 14px;
-  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
 }
 
-/* gentle float so it feels alive */
+/* Smooth floating */
 @keyframes catFloat{
-  0%{ transform: translateY(0px) rotate(-1deg); }
-  50%{ transform: translateY(-9px) rotate(1deg); }
-  100%{ transform: translateY(0px) rotate(-1deg); }
+  0%{ transform: translateX(-50%) translateY(0px) rotate(-1deg); }
+  50%{ transform: translateX(-50%) translateY(-12px) rotate(1deg); }
+  100%{ transform: translateX(-50%) translateY(0px) rotate(-1deg); }
 }
 
 @media (max-width: 600px) {
@@ -219,9 +220,8 @@ header h1 {
   .actions { flex-direction: column; gap: 10px; }
 
   .meme-cat{
-    width: 96px;
-    right: 14px;
-    bottom: 14px;
+  width: 160px;
+  bottom: 20px;
   }
 }
 </style>
@@ -233,14 +233,15 @@ header h1 {
   <div class="card-border"></div>
 
   <header>
-    <h1>The Absence</h1>
-    <div class="script">Collection by Aomsin</div>
+    <h1>Between Here and You</h1>
+    <div class="script">by Aomsin</div>
   </header>
 
-  <div class="divider"><span>Le Message</span></div>
+  <div class="divider"><span>The Message</span></div>
 
   <div class="note">
-    "The heart resides where the feet cannot always follow. Though I am held home, my thoughts remain in your company."
+    "My parents are keeping me close to home. <br/>
+    But I’m cheering for you from here, and I can’t wait to see you again."
   </div>
 
   <div class="actions" role="tablist">
@@ -260,18 +261,19 @@ header h1 {
 <script>
 const content = {
   sit: [
-    "Location: Private Residence. Mindset: Out with you.",
-    "Parental guidance suggested—and mandatory today.",
-    "The house is lovely, but the company is better there."
+    "I tried to leave the house but my parents said: ✨no✨",
+    "I am physically at home but spiritually at your table.",
+    "Present location: house. Preferred location: with you."
   ],
   check: [
-    "A gentle reminder: you are being missed quite elegantly.",
-    "Sending a virtual toast to your table tonight."
+    "If you smile rn, it counts as present.",
+    "Whoever reads this is officially my favorite for 24 hours."
   ],
   us: [
-    "Distance is just a detail in a grander story.",
-    "Quietly awaiting our next golden hour together.",
-    "I miss you more than a sleepless night misses the dawn."
+    "It’s quieter here without you.",
+    "If I disappear, I was taken by responsibility.",
+    "I miss you more than my sleep schedule misses stability."
+];
   ]
 };
 
