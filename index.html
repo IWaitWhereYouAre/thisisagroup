@@ -3,38 +3,193 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AOMSIN | Private Edition</title>
+<title>AOMSIN | L'air</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Montserrat:wght@100;200;300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Cormorant+Infant:ital,wght@1,300;1,400&family=Inter:wght@200;300&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --base: #0a0a0a; /* Deep matte black */
-  --accent: #d4af37; /* Champagne Gold */
-  --paper: #ffffff;
-  --text-muted: #888888;
-  --transition: 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  --pearl: #fcfaf8;
+  --sand: #e8e2db;
+  --taupe: #6e665f;
+  --gold-mist: rgba(212, 175, 55, 0.3);
+  --soft-shadow: 0 20px 60px rgba(110, 102, 95, 0.1);
 }
 
 * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
 body {
   margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--base); /* Dark background for high contrast */
-  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--pearl);
+  color: var(--taupe);
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
 
-/* Background Ornamentation */
-body::before {
-  content: "AOMSIN";
-  position: absolute;
-  font-family: 'Cinzel', serif;
-  font-size: 20vw;
+/* Floating soft light orbs */
+.orb {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sand) 0%, transparent 70%);
+  z-index: -1;
+  filter: blur(80px);
+  animation: float 20s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translate(-20%, -20%); }
+  100% { transform: translate(20%, 20%); }
+}
+
+/* The Frame */
+.main-wrapper {
+  position: relative;
+  width: min(650px, 88%);
+  padding: 80px 50px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--soft-shadow);
+  text-align: center;
+  animation: fadeIn 2.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; filter: blur(10px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+/* Typography */
+.label {
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  color: var(--taupe);
+  opacity: 0.8;
+}
+
+h1 {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin: 0 0 30px;
+  color: #4a443f;
+}
+
+.note {
+  font-family: 'Cormorant Infant', serif;
+  font-size: 20px;
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 50px;
+  color: #5e5751;
+}
+
+/* Minimalist Tab Navigation */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.tab-trigger {
+  all: unset;
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.5s ease;
+  color: var(--taupe);
+}
+
+.tab-trigger.active {
+  border: 1px solid var(--taupe);
+  background: white;
+}
+
+/* Content Reveal */
+#message-reveal {
+  height: 50px;
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  transition: 0.8s ease;
+  opacity: 0;
+}
+
+#message-reveal.show {
+  opacity: 1;
+}
+
+footer {
+  margin-top: 60px;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="orb"></div>
+
+<main class="main-wrapper">
+  <div class="label">Fragment de pensées</div>
+  
+  <h1>Aomsin’s <br> Current Chapter</h1>
+
+  <div class="note">
+    "Safe within the walls of home, but wandering freely in my dreams of us. Distance is merely a temporary state of grace."
+  </div>
+
+  <div class="tabs">
+    <button class="tab-trigger active" onclick="update(this, 'STATUS: AT REST')">Status</button>
+    <button class="tab-trigger" onclick="update(this, 'THE HEART REMAINS')">Sentiment</button>
+    <button class="tab-trigger" onclick="update(this, 'UNTIL WE RECONNECT')">Vision</button>
+  </div>
+
+  <div id="message-reveal"></div>
+
+  <footer>Est. 2026 • Private Entry</footer>
+</main>
+
+<script>
+function update(element, text) {
+  // Reset tabs
+  document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+  element.classList.add('active');
+
+  // Text animation
+  const reveal = document.getElementById('message-reveal');
+  reveal.classList.remove('show');
+  
+  setTimeout(() => {
+    reveal.innerText = text;
+    reveal.classList.add('show');
+  }, 300);
+}
+
+// Set initial
+window.onload = () => {
+    document.getElementById('message-reveal').innerText = 'STATUS: AT REST';
+    document.getElementById('message-reveal').classList.add('show');
+};
+</script>
+
+</body>
+</html>  font-size: 20vw;
   color: rgba(255,255,255,0.02);
   font-weight: 500;
   z-index: 0;
