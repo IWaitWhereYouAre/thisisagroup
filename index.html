@@ -3,433 +3,207 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Miss You 🤍</title>
+<title>AOMSIN | L’Invitation</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..64,400;1,6..64,700&family=Montserrat:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  /* aristocratic palette */
-  --bg1:#f8f5f1;          /* parchment */
-  --bg2:#eef1f8;          /* porcelain */
-  --ink:#1b1b1b;
-  --muted:rgba(27,27,27,.66);
-
-  --gold:#b79a63;         /* antique gold */
-  --gold2:#d7c099;        /* soft gilt */
-
-  --glass1: rgba(255,255,255,.74);
-  --glass2: rgba(255,255,255,.44);
-
-  --border: rgba(255,255,255,.64);
-  --edge: rgba(0,0,0,.08);
-
-  --shadow: 0 46px 120px rgba(0,0,0,.12);
-  --shadow2: 0 18px 56px rgba(0,0,0,.08);
-
-  --focus: rgba(183,154,99,.22);
-  --line: rgba(0,0,0,.12);
-
-  --rose: rgba(222,170,185,.50);
-  --blue: rgba(178,200,230,.55);
+:root {
+  --ivory: #FAF9F6;
+  --gold: #A68966;
+  --onyx: #1A1A1A;
+  --stone: #8E8E8E;
+  --border: 0.5px solid rgba(166, 137, 102, 0.3);
 }
 
-*{box-sizing:border-box;}
-html,body{height:100%;}
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
-body{
-  margin:0;
-  display:grid;
-  place-items:center;
-  font-family:Inter, system-ui, sans-serif;
-  color:var(--ink);
-  overflow:hidden;
-
-  background:
-    radial-gradient(circle at 18% 22%, var(--blue), transparent 58%),
-    radial-gradient(circle at 82% 82%, var(--rose), transparent 60%),
-    linear-gradient(135deg, var(--bg1), var(--bg2));
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: var(--ivory);
+  color: var(--onyx);
+  font-family: 'Montserrat', sans-serif;
+  /* Substrate texture: subtle linen press */
+  background-image: url("https://www.transparenttextures.com/patterns/linen.png");
 }
 
-/* drifting glow */
-body::before{
-  content:"";
-  position:fixed;
-  inset:-35%;
-  background:
-    radial-gradient(circle at 28% 28%, rgba(215,192,153,.18), transparent 58%),
-    radial-gradient(circle at 72% 72%, rgba(183,154,99,.16), transparent 58%),
-    radial-gradient(circle at 35% 70%, rgba(222,170,185,.20), transparent 58%),
-    radial-gradient(circle at 70% 35%, rgba(178,200,230,.18), transparent 58%);
-  filter: blur(78px);
-  animation: drift 18s ease-in-out infinite alternate;
-  pointer-events:none;
+/* The Envelope/Card Container */
+.container {
+  position: relative;
+  width: min(800px, 92%);
+  padding: 100px 60px;
+  background: white;
+  border: var(--border);
+  box-shadow: 0 50px 100px -20px rgba(0,0,0,0.05);
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.98);
+  animation: reveal 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-@keyframes drift{
-  0%{transform:translate(-2%, -1%) scale(1.02);}
-  100%{transform:translate(2%, 1%) scale(1.10);}
+@keyframes reveal {
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* subtle grain for “paper” richness */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background-image:
-    radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
-  background-size: 3px 3px;
-  opacity:.08;
-  mix-blend-mode:multiply;
-  pointer-events:none;
+/* Luxury Monogram */
+.monogram {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 24px;
+  letter-spacing: 0.4em;
+  margin-bottom: 60px;
+  color: var(--gold);
+  text-transform: uppercase;
 }
 
-/* card: gilt frame + inner plate */
-.card{
-  position:relative;
-  width:min(860px, 92%);
-  padding:76px 70px 62px;
-  border-radius:38px;
-
-  background: linear-gradient(180deg, var(--glass1), var(--glass2));
-  backdrop-filter: blur(24px);
-
-  box-shadow: var(--shadow);
-  opacity:0;
-  transform: translateY(18px);
-  animation: fadeUp .9s ease forwards;
+header h1 {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 400;
+  font-style: italic;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
-/* antique frame: faux gilded border */
-.card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:40px;
-  background: linear-gradient(135deg, rgba(215,192,153,.85), rgba(183,154,99,.75), rgba(255,255,255,.35));
-  filter:saturate(1.05);
-  z-index:-1;
+.sub-header {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6em;
+  color: var(--stone);
+  margin-top: 15px;
+  margin-bottom: 50px;
 }
 
-/* inner bevel */
-.card::after{
-  content:"";
-  position:absolute;
-  inset:14px;
-  border-radius:28px;
-  border:1px solid rgba(255,255,255,.44);
-  box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,.05),
-    inset 0 18px 40px rgba(255,255,255,.22);
-  pointer-events:none;
+.divider-ornament {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  margin: 0 auto 50px;
 }
 
-@keyframes fadeUp{ to{opacity:1; transform:translateY(0);} }
-
-header{
-  display:grid;
-  justify-items:center;
-  gap:12px;
+.message {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  line-height: 2;
+  color: var(--onyx);
+  max-width: 540px;
+  margin: 0 auto;
+  font-style: italic;
 }
 
-/* aristocratic typography */
-h1{
-  font-family:"Cormorant Garamond", serif;
-  font-size: clamp(46px, 5.2vw, 68px);
-  font-weight:600;
-  margin:0;
-  letter-spacing:-0.015em;
-  line-height:1.05;
+/* Luxury Navigation (The "Atelier" Tabs) */
+.atelier-nav {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  border-top: var(--border);
+  padding-top: 30px;
 }
 
-/* calligraphic subtitle */
-.script{
-  font-family:Allura, cursive;
-  font-size: 30px;
-  color: rgba(27,27,27,.56);
-  margin-top:2px;
+.nav-item {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--stone);
+  cursor: pointer;
+  transition: all 0.5s ease;
+  position: relative;
 }
 
-/* monogram seal */
-.seal{
-  margin-top:10px;
-  width:70px;
-  height:70px;
-  border-radius:999px;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.8), rgba(255,255,255,.35)),
-    linear-gradient(135deg, rgba(215,192,153,.55), rgba(183,154,99,.35));
-  border:1px solid rgba(183,154,99,.38);
-  box-shadow: var(--shadow2);
+.nav-item:hover, .nav-item.active {
+  color: var(--gold);
 }
 
-.seal span{
-  font-family:"Cormorant Garamond", serif;
-  font-weight:600;
-  font-size:22px;
-  color: rgba(27,27,27,.80);
-  letter-spacing:.06em;
+.nav-item.active::after {
+  content: "•";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
 }
 
-/* ornate divider */
-.divider{
-  width:min(610px, 78%);
-  margin:26px auto 22px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  color: rgba(27,27,27,.42);
+/* The Reveal Area */
+.reveal-content {
+  margin-top: 40px;
+  min-height: 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--stone);
+  opacity: 0;
+  transition: opacity 0.8s ease;
 }
 
-.divider::before,
-.divider::after{
-  content:"";
-  height:1px;
-  flex:1;
-  background: linear-gradient(90deg, transparent, var(--line), transparent);
-}
+.reveal-content.on { opacity: 1; }
 
-.orn{
-  width:42px;
-  height:12px;
-  position:relative;
-  opacity:.85;
-}
-.orn::before,
-.orn::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(183,154,99,.55);
-  border-left:none;
-  border-right:none;
-  border-radius:999px;
-}
-.orn::after{
-  inset:3px 8px;
-  border-color: rgba(215,192,153,.55);
-}
-
-/* note */
-.note{
-  max-width:640px;
-  margin:0 auto;
-  font-family:"Cormorant Garamond", serif;
-  font-size: clamp(22px, 2.3vw, 28px);
-  line-height:1.75;
-  color: rgba(27,27,27,.70);
-  position:relative;
-  padding:10px 0 0;
-}
-
-.note::before{
-  content:"“";
-  font-family:"Cormorant Garamond", serif;
-  font-size:110px;
-  position:absolute;
-  left:-18px;
-  top:-54px;
-  opacity:.10;
-}
-
-/* aristocratic buttons: “gilt” chips */
-.actions{
-  margin-top:32px;
-  display:flex;
-  justify-content:center;
-}
-
-.pill{
-  display:flex;
-  gap:10px;
-  padding:10px;
-  border-radius:999px;
-  background: rgba(255,255,255,.42);
-  border:1px solid rgba(255,255,255,.66);
-  box-shadow: var(--shadow2);
-  backdrop-filter: blur(14px);
-}
-
-.chip{
-  border:1px solid rgba(183,154,99,.42);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.36));
-  padding:11px 16px;
-  border-radius:999px;
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  cursor:pointer;
-  transition:.22s ease;
-  color: rgba(27,27,27,.82);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  user-select:none;
-}
-
-.chip .dot{
-  width:8px;height:8px;border-radius:50%;
-  background: rgba(183,154,99,.45);
-  box-shadow: 0 0 0 3px rgba(183,154,99,.12);
-}
-
-.chip:hover{ transform:translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.10); }
-.chip:active{ transform:translateY(0) scale(.99); }
-.chip:focus-visible{ outline:none; box-shadow:0 0 0 7px var(--focus); }
-
-.chip.active{
-  border-color: rgba(183,154,99,.70);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.45));
-}
-
-.chip.active .dot{
-  background: rgba(183,154,99,.72);
-  box-shadow: 0 0 0 3px rgba(183,154,99,.18);
-}
-
-/* bubble: “letter slip” */
-.bubble{
-  margin:18px auto 0;
-  max-width:680px;
-  font-family:Inter, system-ui, sans-serif;
-  font-size:13px;
-  color:rgba(27,27,27,.66);
-  padding:14px 16px;
-  border-radius:18px;
-  background: rgba(255,255,255,.58);
-  border:1px solid rgba(255,255,255,.76);
-  box-shadow: var(--shadow2);
-  opacity:0;
-  transform:translateY(8px);
-  transition:.28s ease;
-  display:none;
-  position:relative;
-}
-
-/* a little “wax shine” */
-.bubble::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:18px;
-  background: linear-gradient(135deg, rgba(215,192,153,.18), rgba(183,154,99,.10), transparent 55%);
-  opacity:.55;
-  pointer-events:none;
-}
-
-.bubble.show{ display:block; }
-.bubble.on{ opacity:1; transform:translateY(0); }
-
-@media (max-width:520px){
-  .card{padding:56px 22px 52px; border-radius:30px;}
-  .card::before{border-radius:32px;}
-  .card::after{inset:12px; border-radius:22px;}
-  .pill{flex-wrap:wrap; justify-content:center;}
-  .seal{width:62px;height:62px;}
+@media (max-width: 600px) {
+  .container { padding: 60px 20px; }
+  .atelier-nav { gap: 15px; flex-direction: column; }
+  .nav-item.active::after { display: none; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<main class="container">
+  <div class="monogram">A • S</div>
+  
   <header>
-    <h1>Miss you guys so much 🤍</h1>
-    <div class="script">sending love from Aomsin</div>
-    <div class="seal" aria-hidden="true"><span>ISA</span></div>
+    <h1>The Distance Between Us</h1>
+    <div class="sub-header">A Private Note by Aomsin</div>
   </header>
 
-  <div class="divider"><span class="orn" aria-hidden="true"></span></div>
+  <div class="divider-ornament"></div>
 
-  <div class="note">
-    My parents are keeping me close to home. <br/>
-    But I’m cheering for you from here, and I can’t wait to see you again.
-  </div>
+  <section class="message">
+    "Under my parents' watchful care, I remain at home. 
+    However, my thoughts are currently residing wherever you are. 
+    Until we reunite in person."
+  </section>
 
-  <div class="actions">
-    <div class="pill" role="tablist" aria-label="Message modes">
-      <button class="chip active" id="tab-sit" onclick="currentSituation()" aria-controls="bubble" aria-selected="true">
-        <span class="dot"></span> Current Situation
-      </button>
-      <button class="chip" id="tab-check" onclick="checkIn()" aria-controls="bubble" aria-selected="false">
-        <span class="dot"></span> Check-In
-      </button>
-      <button class="chip" id="tab-us" onclick="betweenUs()" aria-controls="bubble" aria-selected="false">
-        <span class="dot"></span> Between Us
-      </button>
-    </div>
-  </div>
+  <nav class="atelier-nav">
+    <button class="nav-item active" id="btn-1" onclick="select('1')">Current State</button>
+    <button class="nav-item" id="btn-2" onclick="select('2')">The Sentiment</button>
+    <button class="nav-item" id="btn-3" onclick="select('3')">The Whisper</button>
+  </nav>
 
-  <div class="bubble" id="bubble" aria-live="polite"></div>
-</div>
+  <div class="reveal-content" id="display-area"></div>
+</main>
 
 <script>
-const bubble = document.getElementById("bubble");
+const archive = {
+  '1': "PROXIMITY: DOMESTIC. SPIRIT: UNTETHERED.",
+  '2': "YOUR PRESENCE IS THE ONLY ACCESSORY I MISS.",
+  '3': "SAVE THE BEST STORIES FOR MY RETURN."
+};
 
-const tabs = [
-  document.getElementById("tab-sit"),
-  document.getElementById("tab-check"),
-  document.getElementById("tab-us")
-];
+function select(id) {
+  // Update UI
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById(`btn-${id}`).classList.add('active');
 
-const situations = [
-  "I tried to leave the house but my parents said: ✨no✨",
-  "I am physically at home but spiritually at your table.",
-  "Present location: house. Preferred location: with you.",
-  "My plan was freedom. My parents chose: domestic captivity (with love)."
-];
-
-const checkIns = [
-  "Check-In: if you smile rn, it counts as present.",
-  "Check-In: whoever reads this is officially my favorite for 24 hours.",
-  "Check-In: reply with one emoji so I know you’re alive and thriving."
-];
-
-const whispers = [
-  "Between us: It’s quieter here without you.",
-  "Between us: If I disappear, I was taken by responsibility.",
-  "Between us: I miss you more than my sleep schedule misses stability.",
-  "Between us: I’m saving all the gossip for when I see you."
-];
-
-function setActive(activeBtn){
-  tabs.forEach(btn => {
-    const isActive = btn === activeBtn;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-selected", isActive ? "true" : "false");
-  });
+  // Fade Text
+  const display = document.getElementById('display-area');
+  display.classList.remove('on');
+  
+  setTimeout(() => {
+    display.innerText = archive[id];
+    display.classList.add('on');
+  }, 300);
 }
 
-function showBubble(text){
-  bubble.textContent = text;
-  bubble.classList.add("show");
-  bubble.classList.remove("on");
-  void bubble.offsetWidth;
-  requestAnimationFrame(() => bubble.classList.add("on"));
-}
-
-function currentSituation(){
-  setActive(document.getElementById("tab-sit"));
-  const pick = situations[Math.floor(Math.random()*situations.length)];
-  showBubble(pick);
-}
-
-function checkIn(){
-  setActive(document.getElementById("tab-check"));
-  const pick = checkIns[Math.floor(Math.random()*checkIns.length)];
-  showBubble(pick);
-}
-
-function betweenUs(){
-  setActive(document.getElementById("tab-us"));
-  const pick = whispers[Math.floor(Math.random()*whispers.length)];
-  showBubble(pick);
-}
+// Initialize
+window.onload = () => select('1');
 </script>
 
 </body>
