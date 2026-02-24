@@ -192,7 +192,7 @@ h1{
 
   <div class="note">
     My parents are keeping me close to home. <br/>
-    But I’m cheering for you from here — and I can’t wait to see you again.
+    But I’m cheering for you from here, and I can’t wait to see you again.
   </div>
 
   <div class="actions">
@@ -215,7 +215,7 @@ const situations = [
 ];
 
 const checkIns = [
-  "Check-In: if you smile rn, it counts as present.,
+  "Check-In: if you smile rn, it counts as present.",
   "Check-In: whoever reads this is officially my favorite for 24 hours."
 ];
 
@@ -228,6 +228,10 @@ const whispers = [
 function showBubble(text){
   bubble.textContent = text;
   bubble.classList.add("show");
+
+  // retrigger animation every click
+  bubble.classList.remove("on");
+  void bubble.offsetWidth; // force reflow
   requestAnimationFrame(() => bubble.classList.add("on"));
 }
 
@@ -251,8 +255,12 @@ async function copyBubble(){
     showBubble("Tap something first 🤍");
     return;
   }
-  await navigator.clipboard.writeText(bubble.textContent);
-  showBubble("Saved 🤍");
+  try{
+    await navigator.clipboard.writeText(bubble.textContent);
+    showBubble("Saved 🤍");
+  }catch(e){
+    showBubble("Couldn’t copy (your browser blocked it) — but I still mean it 🤍");
+  }
 }
 </script>
 
