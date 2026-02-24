@@ -12,16 +12,16 @@
 :root{
   --bg1:#f7f4f1;
   --bg2:#eef3ff;
-
-  --glass1: rgba(255,255,255,.72);
-  --glass2: rgba(255,255,255,.46);
-
-  --text:#1f1f1f;
-  --muted:rgba(31,31,31,.64);
-
+  --glass1: rgba(255,255,255,.74);
+  --glass2: rgba(255,255,255,.44);
+  --text:#1e1e1e;
+  --muted:rgba(30,30,30,.62);
   --border: rgba(255,255,255,.66);
   --shadow: 0 40px 110px rgba(0,0,0,.10);
-  --shadow2: 0 20px 60px rgba(0,0,0,.06);
+  --shadow2: 0 18px 50px rgba(0,0,0,.07);
+  --primary: rgba(255,255,255,.72);
+  --secondary: rgba(255,255,255,.50);
+  --focus: rgba(60,120,255,.25);
 }
 
 *{box-sizing:border-box;}
@@ -31,163 +31,94 @@ body{
   min-height:100vh;
   display:grid;
   place-items:center;
-  font-family:Inter, system-ui, -apple-system, sans-serif;
+  font-family:Inter, system-ui, sans-serif;
   color:var(--text);
   overflow:hidden;
 
   background:
-    radial-gradient(circle at 18% 22%, rgba(190,215,255,.55), transparent 58%),
-    radial-gradient(circle at 82% 80%, rgba(255,205,225,.55), transparent 60%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,.45), transparent 55%),
+    radial-gradient(circle at 20% 20%, rgba(190,215,255,.55), transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(255,205,225,.55), transparent 55%),
     linear-gradient(135deg,var(--bg1),var(--bg2));
 }
 
-/* dreamy moving glow */
 body::before{
   content:"";
   position:fixed;
   inset:-30%;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,200,225,.30), transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(190,210,255,.30), transparent 55%);
-  filter:blur(52px);
+    radial-gradient(circle at 30% 30%, rgba(255,200,225,.28), transparent 55%),
+    radial-gradient(circle at 70% 70%, rgba(190,210,255,.28), transparent 55%);
+  filter:blur(60px);
   animation:drift 18s ease-in-out infinite alternate;
-  pointer-events:none;
-}
-
-/* subtle grain = expensive */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
-  mix-blend-mode:soft-light;
-  opacity:.34;
   pointer-events:none;
 }
 
 @keyframes drift{
   0%{transform:translate(-2%, -1%) scale(1.03);}
-  100%{transform:translate(2%, 1%) scale(1.12);}
-}
-
-/* subtle floating sparkles */
-.sparks{position:fixed; inset:0; pointer-events:none; opacity:.55;}
-.spark{
-  position:absolute;
-  width:6px;height:6px;border-radius:999px;
-  background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,255,255,0) 65%);
-  animation: floaty 10s linear infinite;
-}
-@keyframes floaty{
-  from{ transform:translateY(30px); opacity:0; }
-  12%{opacity:.9;}
-  70%{opacity:.6;}
-  to{ transform:translateY(-110vh); opacity:0; }
+  100%{transform:translate(2%, 1%) scale(1.1);}
 }
 
 .card{
   position:relative;
   width:min(780px, 92%);
-  padding:72px 64px 58px;
+  padding:70px 64px 56px;
   border-radius:34px;
-
   background: linear-gradient(180deg, var(--glass1), var(--glass2));
   backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
   border:1px solid var(--border);
   box-shadow: var(--shadow);
   text-align:center;
-
   opacity:0;
   transform:translateY(18px);
-  animation:fadeUp .95s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:fadeUp .9s ease forwards;
 }
 
-/* inner glow ring */
-.card::before{
-  content:"";
-  position:absolute;
-  inset:10px;
-  border-radius:28px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.72), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(255,255,255,.46), transparent 55%);
-  opacity:.42;
-  pointer-events:none;
+@keyframes fadeUp{
+  to{opacity:1; transform:translateY(0);}
 }
-
-@keyframes fadeUp{ to{opacity:1; transform:translateY(0);} }
 
 h1{
   font-family:"Playfair Display", serif;
-  font-size: clamp(40px, 5vw, 58px);
+  font-size: clamp(40px, 5vw, 56px);
   font-weight:600;
-  margin:0 0 14px 0;
-  letter-spacing:.2px;
-  line-height:1.12;
+  margin:0 0 10px;
 }
 
-/* tiny comedic “subheader” tooltip */
 .script{
   font-family:Parisienne, cursive;
   font-size:28px;
-  color:rgba(31,31,31,.55);
-  margin:0 0 26px 0;
-  position:relative;
-  display:inline-block;
-  padding:0 6px;
+  color:rgba(30,30,30,.54);
+  margin-bottom:26px;
 }
-.script::after{
-  content:"(currently grounded by parental love)";
-  position:absolute;
-  left:50%;
-  top:115%;
-  transform:translateX(-50%);
-  white-space:nowrap;
-  font-family:Inter, sans-serif;
-  font-size:12px;
-  color:rgba(31,31,31,.55);
-  background: rgba(255,255,255,.55);
-  border:1px solid rgba(255,255,255,.65);
-  border-radius:999px;
-  padding:7px 10px;
-  box-shadow: var(--shadow2);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s ease;
-}
-.script:hover::after{ opacity:1; }
 
 .divider{
-  width:min(560px, 92%);
+  width:60%;
   height:1px;
-  margin:0 auto 28px;
+  margin:0 auto 26px;
   background: linear-gradient(90deg, transparent, rgba(0,0,0,.12), transparent);
 }
 
 .note{
   font-size: clamp(18px, 2vw, 22px);
-  line-height:1.95;
+  line-height:1.9;
   color:var(--muted);
-  max-width:590px;
+  max-width:600px;
   margin:0 auto;
   position:relative;
 }
+
 .note::before{
   content:"“";
   font-family:"Playfair Display", serif;
   font-size:92px;
   position:absolute;
-  left:-22px;
+  left:-20px;
   top:-52px;
-  opacity:.09;
+  opacity:.08;
 }
 
-/* buttons */
 .actions{
-  margin-top:26px;
+  margin-top:28px;
   display:flex;
   gap:10px;
   justify-content:center;
@@ -195,105 +126,63 @@ h1{
 }
 
 .btn{
-  border:1px solid rgba(255,255,255,.7);
-  background: rgba(255,255,255,.50);
+  border:1px solid rgba(255,255,255,.75);
+  background: var(--secondary);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: rgba(31,31,31,.78);
-  padding:10px 14px;
+  padding:11px 16px;
   border-radius:999px;
   font-size:13px;
   cursor:pointer;
-  transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+  transition:.2s ease;
   box-shadow: var(--shadow2);
-  user-select:none;
 }
-.btn:hover{ transform: translateY(-2px); background: rgba(255,255,255,.62); }
-.btn:active{ transform: translateY(0px) scale(.98); }
 
-/* funny output bubble */
+.btn.primary{
+  background: var(--primary);
+  font-weight:500;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 6px var(--focus);
+}
+
 .bubble{
-  margin:14px auto 0;
-  max-width:590px;
+  margin:16px auto 0;
+  max-width:600px;
   font-size:13px;
-  color:rgba(31,31,31,.60);
-  display:none;
+  color:rgba(30,30,30,.62);
   padding:12px 14px;
   border-radius:16px;
-  background: rgba(255,255,255,.48);
-  border:1px solid rgba(255,255,255,.65);
+  background: rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.70);
   box-shadow: var(--shadow2);
-}
-
-/* cute minimal paw + heart */
-.paw{
-  margin-top:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  color:rgba(31,31,31,.55);
-  user-select:none;
-}
-.paw .toe{
-  width:7px;height:7px;border-radius:999px;
-  background:rgba(31,31,31,.25);
-  animation: toe 2.8s ease-in-out infinite;
-}
-.paw .pad{
-  width:12px;height:12px;border-radius:999px;
-  background:rgba(31,31,31,.22);
-  transform:translateY(2px);
-  animation: toe 2.8s ease-in-out infinite reverse;
-}
-@keyframes toe{
-  0%,100%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-3px) scale(1.04);}
-}
-.paw .heart{
-  font-size:18px;
-  opacity:.7;
-  animation: heart 2.6s ease-in-out infinite;
-}
-@keyframes heart{
-  0%,100%{transform:translateY(0) rotate(0deg); opacity:.65;}
-  50%{transform:translateY(-4px) rotate(-6deg); opacity:.85;}
-}
-
-/* corner float heart */
-.float-heart{
-  position:absolute;
-  right:38px;
-  bottom:34px;
   opacity:0;
-  font-size:18px;
-  transform:translateY(0);
-  transition:.6s ease;
+  transform:translateY(6px);
+  transition:.25s ease;
+  display:none;
 }
-.card:hover .float-heart{
-  opacity:.78;
-  transform:translateY(-24px);
+
+.bubble.show{
+  display:block;
+}
+
+.bubble.on{
+  opacity:1;
+  transform:translateY(0);
 }
 
 @media (max-width:520px){
-  .card{padding:58px 22px 52px; border-radius:28px;}
-  .note::before{left:-10px; top:-56px;}
-  .float-heart{right:18px; bottom:18px;}
+  .card{padding:56px 22px;}
 }
 </style>
 </head>
 
 <body>
-
-<div class="sparks" aria-hidden="true">
-  <div class="spark" style="left:10%; top:85%; animation-delay:0s;"></div>
-  <div class="spark" style="left:22%; top:92%; animation-delay:1.2s;"></div>
-  <div class="spark" style="left:38%; top:88%; animation-delay:2.3s;"></div>
-  <div class="spark" style="left:55%; top:95%; animation-delay:0.7s;"></div>
-  <div class="spark" style="left:70%; top:90%; animation-delay:1.9s;"></div>
-  <div class="spark" style="left:82%; top:86%; animation-delay:3.0s;"></div>
-  <div class="spark" style="left:92%; top:93%; animation-delay:2.6s;"></div>
-</div>
 
 <div class="card">
   <h1>Miss you guys so much 🤍</h1>
@@ -301,63 +190,69 @@ h1{
 
   <div class="divider"></div>
 
-  <div class="note" id="mainNote">
+  <div class="note">
     My parents are keeping me close to home. <br/>
     But I’m cheering for you from here — and I can’t wait to see you again.
   </div>
 
   <div class="actions">
-    <button class="btn" type="button" onclick="nextExcuse()">generate excuse</button>
-    <button class="btn" type="button" onclick="attendanceCheck()">attendance check</button>
-    <button class="btn" type="button" onclick="toggleSecret()">tap for secret</button>
+    <button class="btn primary" onclick="currentSituation()">Current Situation</button>
+    <button class="btn" onclick="checkIn()">Check-In</button>
+    <button class="btn" onclick="betweenUs()">Between Us</button>
+    <button class="btn" onclick="copyBubble()">Keep</button>
   </div>
 
-  <div class="bubble" id="bubble"></div>
-
-  <div class="paw" aria-hidden="true">
-    <div class="toe"></div><div class="toe"></div><div class="toe"></div><div class="toe"></div>
-    <div class="pad"></div>
-    <div class="heart">♡</div>
-  </div>
-
-  <div class="float-heart">♡</div>
+  <div class="bubble" id="bubble" aria-live="polite"></div>
 </div>
 
 <script>
-const bubble = document.getElementById('bubble');
+const bubble = document.getElementById("bubble");
 
-const excuses = [
+const situations = [
   "I tried to leave the house but my parents said: ✨no✨",
-  "I’m at home doing family bonding, aka being observed.",
   "I am physically at home but spiritually at your table.",
+  "Present location: house. Preferred location: with you."
 ];
 
-let i = 0;
+const checkIns = [
+  "Check-In: if you smile rn, it counts as present.,
+  "Check-In: whoever reads this is officially my favorite for 24 hours."
+];
+
+const whispers = [
+  "Between us: It’s quieter here without you.",
+  "Between us: If I disappear, I was taken by responsibility.",
+  "Between us: I miss you more than my sleep schedule misses stability."
+];
 
 function showBubble(text){
   bubble.textContent = text;
-  bubble.style.display = 'block';
+  bubble.classList.add("show");
+  requestAnimationFrame(() => bubble.classList.add("on"));
 }
 
-function nextExcuse(){
-  showBubble(excuses[i % excuses.length]);
-  i++;
-}
-
-function attendanceCheck(){
-  const options = [
-    "Attendance check: whoever reads this is officially my favorite for 24 hours."
-  ];
-  const pick = options[Math.floor(Math.random() * options.length)];
+function currentSituation(){
+  const pick = situations[Math.floor(Math.random()*situations.length)];
   showBubble(pick);
 }
 
-function toggleSecret(){
-  const secrets = [
-    "Secret: If I disappear, tell everyone I was taken by responsibility."
-  ];
-  const pick = secrets[Math.floor(Math.random() * secrets.length)];
+function checkIn(){
+  const pick = checkIns[Math.floor(Math.random()*checkIns.length)];
   showBubble(pick);
+}
+
+function betweenUs(){
+  const pick = whispers[Math.floor(Math.random()*whispers.length)];
+  showBubble(pick);
+}
+
+async function copyBubble(){
+  if(!bubble.textContent.trim()){
+    showBubble("Tap something first 🤍");
+    return;
+  }
+  await navigator.clipboard.writeText(bubble.textContent);
+  showBubble("Saved 🤍");
 }
 </script>
 
