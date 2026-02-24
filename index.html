@@ -55,6 +55,7 @@ body::before{
 }
 
 .card{
+  position:relative;
   width:min(700px, 90%);
   padding:70px 60px;
   border-radius:30px;
@@ -108,17 +109,37 @@ h1{
   opacity:.08;
 }
 
+/* 🐾 Happy Cat Wiggle Heart */
 .heart{
   margin-top:40px;
   font-size:24px;
-  opacity:.6;
-  animation:pulse 2.5s ease-in-out infinite;
+  opacity:.7;
+  animation:wiggle 2.8s ease-in-out infinite;
 }
 
-@keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.15);}
+@keyframes wiggle{
+  0%,100%{transform:rotate(0deg);}
+  25%{transform:rotate(-8deg);}
+  50%{transform:rotate(6deg);}
+  75%{transform:rotate(-4deg);}
 }
+
+/* ✨ Secret Floating Heart */
+.float-heart{
+  position:absolute;
+  right:40px;
+  bottom:40px;
+  opacity:0;
+  font-size:18px;
+  transform:translateY(0);
+  transition:.6s ease;
+}
+
+.card:hover .float-heart{
+  opacity:.75;
+  transform:translateY(-25px);
+}
+
 </style>
 </head>
 
@@ -126,13 +147,14 @@ h1{
 
 <div class="card">
   <h1>Miss you guys so much 🤍</h1>
-  <div class="script">sending love from home</div>
+  <div class="script">sending love from Aomsin</div>
 
   <div class="note">
-    My parents are keeping me close to home.
+    My parents are keeping me close to home.  
   </div>
 
   <div class="heart">♡</div>
+  <div class="float-heart">♡</div>
 </div>
 
 </body>
