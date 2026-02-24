@@ -12,16 +12,27 @@
 :root{
   --bg1:#f7f4f1;
   --bg2:#eef3ff;
+
   --glass1: rgba(255,255,255,.74);
   --glass2: rgba(255,255,255,.44);
+
   --text:#1e1e1e;
   --muted:rgba(30,30,30,.62);
+
   --border: rgba(255,255,255,.66);
   --shadow: 0 40px 110px rgba(0,0,0,.10);
   --shadow2: 0 18px 50px rgba(0,0,0,.07);
-  --primary: rgba(255,255,255,.72);
-  --secondary: rgba(255,255,255,.50);
-  --focus: rgba(60,120,255,.25);
+
+  --chip: rgba(255,255,255,.58);
+  --chipBorder: rgba(255,255,255,.80);
+
+  --focus: rgba(60,120,255,.24);
+
+  --line: rgba(0,0,0,.11);
+  --accent: rgba(40,90,255,.12);
+
+  --ring1: rgba(190,215,255,.50);
+  --ring2: rgba(255,205,225,.48);
 }
 
 *{box-sizing:border-box;}
@@ -36,75 +47,113 @@ body{
   overflow:hidden;
 
   background:
-    radial-gradient(circle at 20% 20%, rgba(190,215,255,.55), transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(255,205,225,.55), transparent 55%),
+    radial-gradient(circle at 18% 20%, var(--ring1), transparent 56%),
+    radial-gradient(circle at 82% 82%, var(--ring2), transparent 58%),
     linear-gradient(135deg,var(--bg1),var(--bg2));
 }
 
+/* soft drifting glow */
 body::before{
   content:"";
   position:fixed;
-  inset:-30%;
+  inset:-35%;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,200,225,.28), transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(190,210,255,.28), transparent 55%);
-  filter:blur(60px);
+    radial-gradient(circle at 26% 30%, rgba(255,200,225,.26), transparent 58%),
+    radial-gradient(circle at 76% 70%, rgba(190,210,255,.26), transparent 58%);
+  filter:blur(70px);
   animation:drift 18s ease-in-out infinite alternate;
   pointer-events:none;
 }
 
 @keyframes drift{
   0%{transform:translate(-2%, -1%) scale(1.03);}
-  100%{transform:translate(2%, 1%) scale(1.1);}
+  100%{transform:translate(2%, 1%) scale(1.10);}
 }
 
+/* card */
 .card{
   position:relative;
-  width:min(780px, 92%);
-  padding:70px 64px 56px;
-  border-radius:34px;
+  width:min(820px, 92%);
+  padding:74px 64px 60px;
+  border-radius:36px;
   background: linear-gradient(180deg, var(--glass1), var(--glass2));
   backdrop-filter: blur(22px);
   border:1px solid var(--border);
   box-shadow: var(--shadow);
   text-align:center;
+
   opacity:0;
   transform:translateY(18px);
   animation:fadeUp .9s ease forwards;
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.45);
+  pointer-events:none;
 }
 
 @keyframes fadeUp{
   to{opacity:1; transform:translateY(0);}
 }
 
+header{
+  display:grid;
+  gap:12px;
+  justify-items:center;
+}
+
 h1{
   font-family:"Playfair Display", serif;
-  font-size: clamp(40px, 5vw, 56px);
+  font-size: clamp(40px, 5vw, 58px);
   font-weight:600;
-  margin:0 0 10px;
+  margin:0;
+  letter-spacing:-0.02em;
 }
 
 .script{
   font-family:Parisienne, cursive;
   font-size:28px;
-  color:rgba(30,30,30,.54);
-  margin-bottom:26px;
+  color:rgba(30,30,30,.52);
 }
 
+/* elegant separator */
 .divider{
-  width:60%;
-  height:1px;
-  margin:0 auto 26px;
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,.12), transparent);
+  width:min(560px, 74%);
+  margin:26px auto 24px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:rgba(30,30,30,.38);
 }
 
+.divider::before,
+.divider::after{
+  content:"";
+  height:1px;
+  flex:1;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.divider span{
+  font-family:"Playfair Display", serif;
+  font-size:14px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+/* note */
 .note{
   font-size: clamp(18px, 2vw, 22px);
   line-height:1.9;
   color:var(--muted);
-  max-width:600px;
+  max-width:620px;
   margin:0 auto;
   position:relative;
+  padding:6px 0 0;
 }
 
 .note::before{
@@ -112,72 +161,118 @@ h1{
   font-family:"Playfair Display", serif;
   font-size:92px;
   position:absolute;
-  left:-20px;
-  top:-52px;
+  left:-18px;
+  top:-54px;
   opacity:.08;
 }
 
+/* NEW UX: segmented-control style chips */
 .actions{
-  margin-top:28px;
+  margin-top:30px;
   display:flex;
-  gap:10px;
   justify-content:center;
-  flex-wrap:wrap;
 }
 
-.btn{
-  border:1px solid rgba(255,255,255,.75);
-  background: var(--secondary);
-  backdrop-filter: blur(10px);
-  padding:11px 16px;
+.pill{
+  display:flex;
+  gap:8px;
+  padding:10px;
+  border-radius:999px;
+  background: rgba(255,255,255,.44);
+  border:1px solid rgba(255,255,255,.66);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(12px);
+}
+
+.chip{
+  border:1px solid var(--chipBorder);
+  background: var(--chip);
+  padding:10px 14px;
   border-radius:999px;
   font-size:13px;
   cursor:pointer;
-  transition:.2s ease;
-  box-shadow: var(--shadow2);
+  transition:.22s ease;
+  color:rgba(20,20,20,.86);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  user-select:none;
 }
 
-.btn.primary{
-  background: var(--primary);
-  font-weight:500;
+.chip .dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background: rgba(30,30,30,.26);
 }
 
-.btn:hover{
+.chip:hover{
   transform:translateY(-2px);
 }
 
-.btn:focus-visible{
+.chip:active{
+  transform:translateY(0px) scale(.98);
+}
+
+.chip:focus-visible{
   outline:none;
   box-shadow:0 0 0 6px var(--focus);
 }
 
+.chip.active{
+  background: rgba(255,255,255,.72);
+  border-color: rgba(255,255,255,.90);
+}
+
+.chip.active .dot{
+  background: rgba(40,90,255,.55);
+}
+
+/* bubble */
 .bubble{
-  margin:16px auto 0;
-  max-width:600px;
+  margin:18px auto 0;
+  max-width:640px;
   font-size:13px;
-  color:rgba(30,30,30,.62);
-  padding:12px 14px;
-  border-radius:16px;
-  background: rgba(255,255,255,.55);
-  border:1px solid rgba(255,255,255,.70);
+  color:rgba(30,30,30,.66);
+  padding:14px 16px;
+  border-radius:18px;
+  background: rgba(255,255,255,.58);
+  border:1px solid rgba(255,255,255,.74);
   box-shadow: var(--shadow2);
   opacity:0;
-  transform:translateY(6px);
-  transition:.25s ease;
+  transform:translateY(8px);
+  transition:.28s ease;
   display:none;
+  position:relative;
 }
 
-.bubble.show{
-  display:block;
+.bubble.show{ display:block; }
+.bubble.on{ opacity:1; transform:translateY(0); }
+
+.bubble::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:18px;
+  background: linear-gradient(135deg, rgba(40,90,255,.14), rgba(255,150,190,.14));
+  opacity:.35;
+  filter:blur(16px);
+  z-index:-1;
 }
 
-.bubble.on{
-  opacity:1;
-  transform:translateY(0);
+/* tiny “polished” micro-interaction */
+@media (prefers-reduced-motion: no-preference){
+  .card:hover{
+    transform:translateY(-2px);
+    transition:transform .35s ease;
+  }
 }
 
+/* mobile */
 @media (max-width:520px){
-  .card{padding:56px 22px;}
+  .card{padding:56px 22px 52px; border-radius:30px;}
+  .card::after{inset:12px; border-radius:22px;}
+  .pill{flex-wrap:wrap; justify-content:center;}
 }
 </style>
 </head>
@@ -185,21 +280,31 @@ h1{
 <body>
 
 <div class="card">
-  <h1>Miss you guys so much 🤍</h1>
-  <div class="script">sending love from Aomsin</div>
+  <header>
+    <h1>Miss you guys so much 🤍</h1>
+    <div class="script">sending love from Aomsin</div>
+  </header>
 
-  <div class="divider"></div>
+  <div class="divider"><span>note</span></div>
 
   <div class="note">
     My parents are keeping me close to home. <br/>
     But I’m cheering for you from here, and I can’t wait to see you again.
   </div>
 
+  <!-- Keep button removed + new elegant segmented UX -->
   <div class="actions">
-    <button class="btn primary" onclick="currentSituation()">Current Situation</button>
-    <button class="btn" onclick="checkIn()">Check-In</button>
-    <button class="btn" onclick="betweenUs()">Between Us</button>
-    <button class="btn" onclick="copyBubble()">Keep</button>
+    <div class="pill" role="tablist" aria-label="Message modes">
+      <button class="chip active" id="tab-sit" onclick="currentSituation()" aria-controls="bubble" aria-selected="true">
+        <span class="dot"></span> Current Situation
+      </button>
+      <button class="chip" id="tab-check" onclick="checkIn()" aria-controls="bubble" aria-selected="false">
+        <span class="dot"></span> Check-In
+      </button>
+      <button class="chip" id="tab-us" onclick="betweenUs()" aria-controls="bubble" aria-selected="false">
+        <span class="dot"></span> Between Us
+      </button>
+    </div>
   </div>
 
   <div class="bubble" id="bubble" aria-live="polite"></div>
@@ -207,6 +312,12 @@ h1{
 
 <script>
 const bubble = document.getElementById("bubble");
+
+const tabs = [
+  document.getElementById("tab-sit"),
+  document.getElementById("tab-check"),
+  document.getElementById("tab-us")
+];
 
 const situations = [
   "I tried to leave the house but my parents said: ✨no✨",
@@ -225,6 +336,14 @@ const whispers = [
   "Between us: I miss you more than my sleep schedule misses stability."
 ];
 
+function setActive(activeBtn){
+  tabs.forEach(btn => {
+    const isActive = btn === activeBtn;
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-selected", isActive ? "true" : "false");
+  });
+}
+
 function showBubble(text){
   bubble.textContent = text;
   bubble.classList.add("show");
@@ -236,16 +355,19 @@ function showBubble(text){
 }
 
 function currentSituation(){
+  setActive(document.getElementById("tab-sit"));
   const pick = situations[Math.floor(Math.random()*situations.length)];
   showBubble(pick);
 }
 
 function checkIn(){
+  setActive(document.getElementById("tab-check"));
   const pick = checkIns[Math.floor(Math.random()*checkIns.length)];
   showBubble(pick);
 }
 
 function betweenUs(){
+  setActive(document.getElementById("tab-us"));
   const pick = whispers[Math.floor(Math.random()*whispers.length)];
   showBubble(pick);
 }
